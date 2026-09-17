@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { LogoMark } from '../components/Logo';
+import Reveal from '../components/Reveal';
 import './Next.css';
 
 const journeys = [
@@ -30,14 +31,16 @@ export default function Next() {
     <main className="next-page">
       <section className="next-hero">
         <div className="container next-hero__inner">
-          <LogoMark size={56} />
-          <p className="eyebrow">You were there</p>
-          <h1>Enjoyed your Sixth Glass?</h1>
-          <p className="next-hero__lead">
+          <div className="reveal">
+            <LogoMark size={56} />
+          </div>
+          <p className="eyebrow reveal reveal-delay-1">You were there</p>
+          <h1 className="reveal reveal-delay-1">Enjoyed your Sixth Glass?</h1>
+          <p className="next-hero__lead reveal reveal-delay-2">
             A little something special is waiting for you.
           </p>
-          <hr className="hairline" />
-          <p className="next-hero__sub">
+          <hr className="hairline reveal reveal-delay-2" />
+          <p className="next-hero__sub reveal reveal-delay-3">
             Where should your next six glasses take you?
           </p>
         </div>
@@ -45,14 +48,14 @@ export default function Next() {
 
       <section className="section section--ivory next-guest" id="host-your-own">
         <div className="container next-split">
-          <div>
+          <Reveal>
             <p className="eyebrow">For the guest</p>
             <h2 className="section-title">Now it&apos;s your turn to host.</h2>
             <p className="section-lead">
               You were a guest tonight. Next time, make it your table.
             </p>
-          </div>
-          <div className="next-offer">
+          </Reveal>
+          <Reveal className="next-offer" delay={120}>
             <p>
               Host your own Signature Sixth Glass experience and receive a welcome gift toward
               your first evening.
@@ -70,24 +73,31 @@ export default function Next() {
             >
               Host your own evening
             </a>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="section section--wine next-host" id="returning-host">
         <div className="container">
-          <p className="eyebrow">For the original host</p>
-          <h2 className="section-title">You&apos;ve hosted The Sixth Glass.</h2>
-          <p className="section-lead">Now choose your next journey.</p>
-          <p className="next-host__upgrade">
-            Returning hosts receive something special on their next experience—a premium sixth
-            wine, a thoughtful pairing, or another upgrade that feels like hospitality, not a
-            coupon.
-          </p>
+          <Reveal>
+            <p className="eyebrow">For the original host</p>
+            <h2 className="section-title">You&apos;ve hosted The Sixth Glass.</h2>
+            <p className="section-lead">Now choose your next journey.</p>
+            <p className="next-host__upgrade">
+              Returning hosts receive something special on their next experience—a premium sixth
+              wine, a thoughtful pairing, or another upgrade that feels like hospitality, not a
+              coupon.
+            </p>
+          </Reveal>
 
           <div className="next-journeys">
-            {journeys.map((j) => (
-              <article key={j.title} className="next-journeys__item">
+            {journeys.map((j, i) => (
+              <Reveal
+                as="article"
+                key={j.title}
+                className="next-journeys__item"
+                delay={i * 80}
+              >
                 <span className="next-journeys__label">{j.label}</span>
                 <h3>{j.title}</h3>
                 <p>{j.body}</p>
@@ -97,7 +107,7 @@ export default function Next() {
                 >
                   Inquire about this journey
                 </a>
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -105,18 +115,20 @@ export default function Next() {
 
       <section className="section section--charcoal next-close">
         <div className="container next-close__inner">
-          <p className="next-close__line">
-            Six wines. 90 minutes. Your home. Your friends.
-          </p>
-          <p className="next-close__brand">The Sixth Glass</p>
-          <div className="next-close__actions">
-            <a href="#host-your-own" className="btn btn--copper">
-              Host an Experience
-            </a>
-            <Link to="/" className="btn btn--outline">
-              Back to the beginning
-            </Link>
-          </div>
+          <Reveal>
+            <p className="next-close__line">
+              Six wines. 90 minutes. Your home. Your friends.
+            </p>
+            <p className="next-close__brand">The Sixth Glass</p>
+            <div className="next-close__actions">
+              <a href="#host-your-own" className="btn btn--copper">
+                Host an Experience
+              </a>
+              <Link to="/" className="btn btn--outline">
+                Back to the beginning
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
     </main>

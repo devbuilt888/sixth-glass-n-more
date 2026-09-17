@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { LogoWordmark } from '../components/Logo';
+import Reveal from '../components/Reveal';
 import './Home.css';
 
 const glasses = [
@@ -123,13 +124,14 @@ const journeys = [
     body: 'From elegant Pinot Noir to powerful Cabernet—and everything structure, tannin and body can teach us along the way.',
   },
 ];
+
 export default function Home() {
   return (
     <main className="home">
-      {/* HERO */}
       <section className="hero" aria-label="The Sixth Glass">
         <div className="hero__media" aria-hidden="true">
           <img src="/images/hero-table.png" alt="" />
+          <div className="hero__glow" />
           <div className="hero__veil" />
         </div>
         <div className="hero__content container">
@@ -152,18 +154,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NOT A WINE CLASS */}
       <section className="section section--ivory intro">
         <div className="container intro__grid">
-          <div>
+          <Reveal>
             <p className="eyebrow">The invitation</p>
             <h2 className="section-title">This isn&apos;t a wine class.</h2>
             <hr className="hairline" />
             <p className="section-lead">
               It&apos;s an evening with friends that happens to make you better at wine.
             </p>
-          </div>
-          <div className="intro__copy">
+          </Reveal>
+          <Reveal className="intro__copy" delay={120}>
             <p>
               The Sixth Glass is a private, interactive wine experience brought to your home.
             </p>
@@ -180,35 +181,37 @@ export default function Home() {
             <p className="intro__close">
               Just good wine, good people and a different way to spend an evening together.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* SIX GLASSES */}
       <section className="section section--wine journey" id="journey">
         <div className="container">
-          <p className="eyebrow">The tasting</p>
-          <h2 className="section-title">Six glasses. One journey.</h2>
+          <Reveal>
+            <p className="eyebrow">The tasting</p>
+            <h2 className="section-title">Six glasses. One journey.</h2>
+          </Reveal>
           <div className="journey__grid">
-            {glasses.map((g) => (
-              <article
+            {glasses.map((g, i) => (
+              <Reveal
                 key={g.n}
+                as="article"
+                delay={i * 70}
                 className={`journey__card ${g.mystery ? 'journey__card--mystery' : ''}`}
               >
                 <p className="journey__n">Glass {g.n}</p>
                 <h3>{g.title}</h3>
                 <p className="journey__q">{g.q}</p>
                 <p>{g.body}</p>
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* LEARN */}
       <section className="section section--ivory learn">
         <div className="container learn__grid">
-          <div>
+          <Reveal>
             <p className="eyebrow">What you take home</p>
             <h2 className="section-title">You don&apos;t need to know anything about wine.</h2>
             <p className="section-lead">Actually, that&apos;s part of the fun.</p>
@@ -218,88 +221,89 @@ export default function Home() {
               terminology. Instead, we&apos;ll use simple ideas you can remember the next time
               you open a bottle.
             </p>
-          </div>
-          <div className="learn__ritual" aria-label="Tasting ritual">
+          </Reveal>
+          <Reveal className="learn__ritual" delay={100} aria-label="Tasting ritual">
             {['Look', 'Smell', 'Taste', 'Decide'].map((step, i) => (
-              <div key={step} className="learn__step">
+              <div key={step} className="learn__step" style={{ '--i': i }}>
                 <span>{String(i + 1).padStart(2, '0')}</span>
                 <strong>{step}</strong>
               </div>
             ))}
-          </div>
-          <ul className="learn__ideas">
+          </Reveal>
+          <Reveal as="ul" className="learn__ideas" delay={160}>
             <li>Why acidity makes your mouth water</li>
             <li>Why tannin makes it feel dry</li>
             <li>How grape skins transform wine</li>
             <li>What oak actually does</li>
             <li>How to think about body</li>
             <li>Why an expensive wine isn&apos;t necessarily the wine you&apos;ll enjoy most</li>
-          </ul>
-          <p className="learn__truth">
+          </Reveal>
+          <Reveal as="p" className="learn__truth" delay={220}>
             Because quality and preference aren&apos;t the same thing.
-          </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* YOUR HOME */}
       <section className="section section--rosewood gathering">
         <div className="container gathering__inner">
-          <p className="eyebrow">The setting</p>
-          <h2 className="section-title">Your home. Your people.</h2>
-          <p className="section-lead">
-            Invite the friends. Set the table. We&apos;ll bring the experience.
-          </p>
-          <hr className="hairline" />
-          <p className="gathering__intro">
-            The Sixth Glass is designed for intimate groups where everyone can participate, talk,
-            taste and have fun together.
-          </p>
-          <dl className="gathering__facts">
-            <div>
-              <dt>Ideal group</dt>
-              <dd>8–16 guests</dd>
-            </div>
-            <div>
-              <dt>Sweet spot</dt>
-              <dd>10–12 guests</dd>
-            </div>
-            <div>
-              <dt>Experience</dt>
-              <dd>~90 minutes</dd>
-            </div>
-            <div>
-              <dt>Wines</dt>
-              <dd>Six</dd>
-            </div>
-            <div>
-              <dt>Location</dt>
-              <dd>Your home or private venue</dd>
-            </div>
-            <div>
-              <dt>Language</dt>
-              <dd>English or Spanish</dd>
-            </div>
-          </dl>
-          <p className="gathering__es">
-            La experiencia completa está disponible en ambos idiomas.
-          </p>
-          <p className="gathering__occasions">
-            Perfect for dinner parties, birthdays, couples&apos; nights, celebrations—or simply
-            an excuse to get your favorite people around the same table.
-          </p>
+          <Reveal>
+            <p className="eyebrow">The setting</p>
+            <h2 className="section-title">Your home. Your people.</h2>
+            <p className="section-lead">
+              Invite the friends. Set the table. We&apos;ll bring the experience.
+            </p>
+            <hr className="hairline" />
+            <p className="gathering__intro">
+              The Sixth Glass is designed for intimate groups where everyone can participate, talk,
+              taste and have fun together.
+            </p>
+            <dl className="gathering__facts">
+              <div>
+                <dt>Ideal group</dt>
+                <dd>8–16 guests</dd>
+              </div>
+              <div>
+                <dt>Sweet spot</dt>
+                <dd>10–12 guests</dd>
+              </div>
+              <div>
+                <dt>Experience</dt>
+                <dd>~90 minutes</dd>
+              </div>
+              <div>
+                <dt>Wines</dt>
+                <dd>Six</dd>
+              </div>
+              <div>
+                <dt>Location</dt>
+                <dd>Your home or private venue</dd>
+              </div>
+              <div>
+                <dt>Language</dt>
+                <dd>English or Spanish</dd>
+              </div>
+            </dl>
+            <p className="gathering__es">
+              La experiencia completa está disponible en ambos idiomas.
+            </p>
+            <p className="gathering__occasions">
+              Perfect for dinner parties, birthdays, couples&apos; nights, celebrations—or simply
+              an excuse to get your favorite people around the same table.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* ABOUT */}
       <section className="section section--ivory about" id="about">
         <div className="container about__grid">
-          <div className="about__portrait" aria-hidden="true">
+          <Reveal className="about__portrait" aria-hidden="true">
             <div className="about__frame">
+              <div className="about__orb" />
               <p className="about__initials">MB</p>
               <p className="about__caption">Host · Guide · Storyteller</p>
             </div>
-          </div>
-          <div>
+          </Reveal>
+          <Reveal delay={120}>
             <p className="eyebrow">Meet your host</p>
             <h2 className="section-title">Miguel A. Beas</h2>
             <hr className="hairline" />
@@ -330,37 +334,39 @@ export default function Home() {
                 quite the same way again.
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
       <section className="section section--wine how" id="how-it-works">
         <div className="container">
-          <p className="eyebrow">The evening, simply</p>
-          <h2 className="section-title">How it works</h2>
+          <Reveal>
+            <p className="eyebrow">The evening, simply</p>
+            <h2 className="section-title">How it works</h2>
+          </Reveal>
           <ol className="how__list">
-            {steps.map((s) => (
-              <li key={s.n}>
+            {steps.map((s, i) => (
+              <Reveal as="li" key={s.n} delay={i * 80}>
                 <span className="how__n">{s.n}</span>
                 <div>
                   <h3>{s.title}</h3>
                   <p>{s.body}</p>
                 </div>
-              </li>
+              </Reveal>
             ))}
           </ol>
         </div>
       </section>
 
-      {/* SIGNATURE EXPERIENCE */}
       <section className="section section--ivory experiences" id="experiences">
         <div className="container">
-          <p className="eyebrow">Start here</p>
-          <h2 className="section-title">The Experience</h2>
-          <p className="section-lead">New to The Sixth Glass? Begin with the Signature.</p>
+          <Reveal>
+            <p className="eyebrow">Start here</p>
+            <h2 className="section-title">The Experience</h2>
+            <p className="section-lead">New to The Sixth Glass? Begin with the Signature.</p>
+          </Reveal>
 
-          <article className="signature" id="host">
+          <Reveal as="article" className="signature" id="host" delay={100}>
             <div className="signature__badge">Flagship</div>
             <h3>The Sixth Glass — Signature Private Experience</h3>
             <ul className="signature__list">
@@ -387,66 +393,75 @@ export default function Home() {
               Wine is purchased separately by the host. The Sixth Glass provides private
               educational and entertainment services and does not sell alcoholic beverages.
             </p>
-          </article>
+          </Reveal>
         </div>
       </section>
 
-      {/* WHAT'S NEXT TEASER */}
       <section className="section section--charcoal next-teaser">
         <div className="container">
-          <p className="eyebrow">After the Signature</p>
-          <h2 className="section-title">You&apos;ve had The Sixth Glass. What&apos;s next?</h2>
-          <p className="section-lead">
-            Where should your next six glasses take you?
-          </p>
+          <Reveal>
+            <p className="eyebrow">After the Signature</p>
+            <h2 className="section-title">You&apos;ve had The Sixth Glass. What&apos;s next?</h2>
+            <p className="section-lead">
+              Where should your next six glasses take you?
+            </p>
+          </Reveal>
           <div className="next-teaser__grid">
-            {journeys.map((j) => (
-              <article key={j.title} className="next-teaser__item">
+            {journeys.map((j, i) => (
+              <Reveal
+                as="article"
+                key={j.title}
+                className="next-teaser__item"
+                delay={i * 80}
+              >
                 <span className="next-teaser__label">{j.label}</span>
                 <h3>{j.title}</h3>
                 <p>{j.body}</p>
-              </article>
-            ))}          </div>
-          <p className="next-teaser__more">More experiences coming…</p>
-          <Link to="/next" className="btn btn--outline">
-            Explore what comes next
-          </Link>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={200}>
+            <p className="next-teaser__more">More experiences coming…</p>
+            <Link to="/next" className="btn btn--outline">
+              Explore what comes next
+            </Link>
+          </Reveal>
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="section section--ivory faq" id="faq">
         <div className="container faq__inner">
-          <div>
+          <Reveal>
             <p className="eyebrow">Before you host</p>
             <h2 className="section-title">Frequently asked questions</h2>
-          </div>
-          <div className="faq__list">
+          </Reveal>
+          <Reveal className="faq__list" delay={100}>
             {faqs.map((item) => (
               <details key={item.q} className="faq__item">
                 <summary>{item.q}</summary>
                 <p>{item.a}</p>
               </details>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* CLOSING */}
       <section className="section section--wine closing">
         <div className="container closing__inner">
-          <p className="eyebrow">One last question</p>
-          <h2 className="section-title">What happens at the sixth glass?</h2>
-          <p className="closing__answer">There&apos;s only one way to find out.</p>
-          <hr className="hairline" />
-          <p className="closing__tag">
-            Six wines. 90 minutes. Your home. Your friends.
-          </p>
-          <p className="closing__brand">The Sixth Glass</p>
-          <p className="closing__verbs">Taste. Discover. Laugh. Connect.</p>
-          <a href="#host" className="btn btn--copper">
-            Host The Sixth Glass
-          </a>
+          <Reveal>
+            <p className="eyebrow">One last question</p>
+            <h2 className="section-title">What happens at the sixth glass?</h2>
+            <p className="closing__answer">There&apos;s only one way to find out.</p>
+            <hr className="hairline hairline--center" />
+            <p className="closing__tag">
+              Six wines. 90 minutes. Your home. Your friends.
+            </p>
+            <p className="closing__brand">The Sixth Glass</p>
+            <p className="closing__verbs">Taste. Discover. Laugh. Connect.</p>
+            <a href="#host" className="btn btn--copper">
+              Host The Sixth Glass
+            </a>
+          </Reveal>
         </div>
       </section>
     </main>

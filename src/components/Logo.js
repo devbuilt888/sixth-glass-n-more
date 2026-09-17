@@ -1,4 +1,5 @@
 export function LogoMark({ className = '', size = 72 }) {
+  const uid = `logo-${size}`;
   return (
     <svg
       className={`logo-mark ${className}`}
@@ -10,58 +11,67 @@ export function LogoMark({ className = '', size = 72 }) {
       aria-hidden="true"
     >
       <defs>
-        <linearGradient id="copperGrad" x1="10" y1="5" x2="90" y2="100" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`${uid}-copper`} x1="8" y1="0" x2="92" y2="110" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#E8D0B8" />
-          <stop offset="35%" stopColor="#C9A287" />
-          <stop offset="70%" stopColor="#A67C5D" />
+          <stop offset="28%" stopColor="#C9A287" />
+          <stop offset="55%" stopColor="#A67C5D" />
+          <stop offset="78%" stopColor="#D4B396" />
           <stop offset="100%" stopColor="#C9A287" />
         </linearGradient>
-        <linearGradient id="wineFill" x1="35" y1="45" x2="65" y2="85" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`${uid}-wine`} x1="30" y1="42" x2="70" y2="78" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#6B2A3A" />
-          <stop offset="100%" stopColor="#452032" />
+          <stop offset="55%" stopColor="#452032" />
+          <stop offset="100%" stopColor="#2F1522" />
         </linearGradient>
+        <radialGradient id={`${uid}-sheen`} cx="38%" cy="32%" r="45%">
+          <stop offset="0%" stopColor="#FFF6EC" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#C9A287" stopOpacity="0" />
+        </radialGradient>
       </defs>
-      {/* Glass bowl / 6 loop */}
+
       <path
-        d="M52 8 C78 8 88 28 82 48 C76 68 58 72 50 72 C42 72 24 68 18 48 C12 28 26 8 52 8 Z"
-        stroke="url(#copperGrad)"
-        strokeWidth="3.2"
+        d="M52 7 C78 7 89 28 82.5 48.5 C76 69 58.5 73 50 73 C41.5 73 24 69 17.5 48.5 C11 28 26 7 52 7 Z"
+        stroke={`url(#${uid}-copper)`}
+        strokeWidth="3.1"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M27.5 49 C32 63 40.5 69.5 50 69.5 C59.5 69.5 68 63 72.5 49 C68 53.5 59.5 55.5 50 55.5 C40.5 55.5 32 53.5 27.5 49 Z"
+        fill={`url(#${uid}-wine)`}
+      />
+      <path
+        d="M34 51.5 C40 54 45 54.5 50 54.5 C55 54.5 60 54 66 51.5"
+        stroke="#89465B"
+        strokeWidth="0.8"
+        opacity="0.45"
+      />
+      <ellipse cx="42" cy="28" rx="10" ry="7" fill={`url(#${uid}-sheen)`} />
+      <path
+        d="M52 7 C71 7 83 18 85 33"
+        stroke={`url(#${uid}-copper)`}
+        strokeWidth="3.1"
         fill="none"
         strokeLinecap="round"
       />
-      {/* Wine in bowl */}
       <path
-        d="M28 48 C32 62 40 68 50 68 C60 68 68 62 72 48 C68 52 60 54 50 54 C40 54 32 52 28 48 Z"
-        fill="url(#wineFill)"
-        opacity="0.95"
-      />
-      {/* Upper curve of 6 */}
-      <path
-        d="M52 8 C70 8 82 18 84 32"
-        stroke="url(#copperGrad)"
-        strokeWidth="3.2"
-        fill="none"
-        strokeLinecap="round"
-      />
-      {/* Stem */}
-      <path
-        d="M50 72 L50 96"
-        stroke="url(#copperGrad)"
+        d="M50 73 L50 97"
+        stroke={`url(#${uid}-copper)`}
         strokeWidth="3"
         strokeLinecap="round"
       />
-      {/* Base */}
       <path
-        d="M34 104 C38 98 44 96 50 96 C56 96 62 98 66 104"
-        stroke="url(#copperGrad)"
+        d="M34 105 C38.5 98.5 44 97 50 97 C56 97 61.5 98.5 66 105"
+        stroke={`url(#${uid}-copper)`}
         strokeWidth="3"
         fill="none"
         strokeLinecap="round"
       />
       <path
-        d="M32 106 H68"
-        stroke="url(#copperGrad)"
-        strokeWidth="2.5"
+        d="M31.5 107 H68.5"
+        stroke={`url(#${uid}-copper)`}
+        strokeWidth="2.4"
         strokeLinecap="round"
       />
     </svg>
@@ -71,10 +81,12 @@ export function LogoMark({ className = '', size = 72 }) {
 export function LogoWordmark({ light = false, compact = false }) {
   return (
     <div className={`logo-wordmark ${light ? 'logo-wordmark--light' : ''} ${compact ? 'logo-wordmark--compact' : ''}`}>
-      <LogoMark size={compact ? 40 : 64} />
+      <LogoMark size={compact ? 40 : 72} />
       <div className="logo-wordmark__text">
         <p className="logo-wordmark__brand">
-          <span className="logo-wordmark__the">The</span> Sixth Glass
+          <span className="logo-wordmark__the">The</span>
+          <span className="logo-wordmark__sixth">Sixth</span>
+          <span className="logo-wordmark__glass"> Glass</span>
         </p>
         {!compact && (
           <p className="logo-wordmark__tag">
@@ -91,7 +103,7 @@ export function LogoWordmark({ light = false, compact = false }) {
 export function LogoHorizontal({ light = false }) {
   return (
     <div className={`logo-horizontal ${light ? 'logo-horizontal--light' : ''}`}>
-      <LogoMark size={36} />
+      <LogoMark size={34} />
       <span className="logo-horizontal__divider" aria-hidden="true" />
       <div>
         <p className="logo-horizontal__brand">The Sixth Glass</p>
