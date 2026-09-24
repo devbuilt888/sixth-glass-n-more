@@ -32,7 +32,7 @@ export default function Next() {
       <section className="next-hero">
         <div className="container next-hero__inner">
           <div className="reveal">
-            <LogoMark size={56} />
+            <LogoMark size={64} />
           </div>
           <p className="eyebrow reveal reveal-delay-1">You were there</p>
           <h1 className="reveal reveal-delay-1">Enjoyed your Sixth Glass?</h1>
