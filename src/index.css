@@ -125,7 +125,6 @@ ul {
 .section {
   padding: var(--section-y) 0;
   position: relative;
-  overflow: clip;
 }
 
 .section--wine {

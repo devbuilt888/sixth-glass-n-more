@@ -1,0 +1,356 @@
+.inquire {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  margin-top: 0.5rem;
+}
+
+.inquire--sent {
+  align-items: center;
+  text-align: center;
+  gap: 0.85rem;
+  margin-top: 0.25rem;
+  padding: clamp(2rem, 5vw, 2.75rem) clamp(1.25rem, 4vw, 2rem);
+  background: var(--wine);
+  color: var(--ivory);
+  border: 1px solid color-mix(in srgb, var(--copper) 65%, transparent);
+  box-shadow: 0 28px 60px color-mix(in srgb, var(--charcoal) 22%, transparent);
+  animation: rise 0.7s var(--ease-out) both;
+}
+
+.inquire--sent .logo-mark {
+  margin-bottom: 0.35rem;
+}
+
+.inquire__sent-kicker {
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+
+.inquire__thanks {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  letter-spacing: 0.02em;
+  line-height: 1.12;
+  max-width: 12ch;
+  color: var(--ivory);
+}
+
+.inquire--sent .hairline {
+  margin: 0.35rem 0;
+}
+
+.inquire__sent-body {
+  font-style: italic;
+  font-size: 1.28rem;
+  max-width: 32ch;
+  line-height: 1.45;
+}
+
+.inquire__sent-meta {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--copper);
+  max-width: 36ch;
+}
+
+.inquire--dark.inquire--sent {
+  background: var(--ivory);
+  color: var(--wine);
+}
+
+.inquire--dark.inquire--sent .inquire__thanks,
+.inquire--dark.inquire--sent .inquire__sent-body {
+  color: var(--wine);
+}
+
+.inquire--dark.inquire--sent .inquire__sent-kicker,
+.inquire--dark.inquire--sent .inquire__sent-meta {
+  color: var(--rosewood);
+}
+
+.inquire__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.15rem 1.5rem;
+}
+
+.inquire__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.inquire__label {
+  font-family: var(--font-ui);
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rosewood);
+}
+
+.inquire__label span {
+  letter-spacing: 0.16em;
+  opacity: 0.65;
+}
+
+.inquire input,
+.inquire textarea,
+.inquire select {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--wine) 28%, transparent);
+  background: transparent;
+  color: var(--wine);
+  border-radius: 0;
+  padding: 0.7rem 0 0.65rem;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  line-height: 1.4;
+  transition: border-color 0.3s var(--ease-out);
+}
+
+.inquire textarea {
+  resize: vertical;
+  min-height: 5.5rem;
+}
+
+.inquire input::placeholder,
+.inquire textarea::placeholder {
+  color: color-mix(in srgb, var(--wine) 42%, transparent);
+  font-style: italic;
+}
+
+.inquire input:focus,
+.inquire textarea:focus,
+.inquire select:focus,
+.date-field__trigger:focus-visible {
+  outline: none;
+  border-bottom-color: var(--copper);
+}
+
+.inquire select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--copper) 50%),
+    linear-gradient(135deg, var(--copper) 50%, transparent 50%);
+  background-position: calc(100% - 10px) 55%, calc(100% - 5px) 55%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 1.4rem;
+  cursor: pointer;
+}
+
+.inquire--dark {
+  color: var(--ivory);
+}
+
+.inquire--dark .inquire__label,
+.inquire--dark .inquire__mailto {
+  color: var(--copper);
+}
+
+.inquire--dark .inquire__thanks,
+.inquire--dark input,
+.inquire--dark textarea,
+.inquire--dark select {
+  color: var(--ivory);
+  border-bottom-color: color-mix(in srgb, var(--ivory) 35%, transparent);
+}
+
+.inquire--dark input::placeholder,
+.inquire--dark textarea::placeholder {
+  color: color-mix(in srgb, var(--ivory) 55%, transparent);
+}
+
+.inquire--dark select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--copper) 50%),
+    linear-gradient(135deg, var(--copper) 50%, transparent 50%);
+}
+
+.inquire__error {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--rosewood);
+  margin-top: -0.4rem;
+}
+
+.inquire--dark .inquire__error {
+  color: var(--copper-bright);
+}
+
+.inquire__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.15rem 1.5rem;
+  margin-top: 0.35rem;
+}
+
+.inquire__mailto {
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rosewood);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.inquire__mailto:hover {
+  color: var(--wine);
+  border-bottom-color: currentColor;
+}
+
+.inquire--dark .inquire__mailto:hover {
+  color: var(--copper-bright);
+}
+
+/* Calendar */
+.date-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.date-field__trigger {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--wine) 28%, transparent);
+  background: transparent;
+  color: var(--wine);
+  padding: 0.7rem 0 0.65rem;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.date-field__placeholder {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: color-mix(in srgb, var(--wine) 42%, transparent);
+}
+
+.date-field--dark .date-field__trigger {
+  color: var(--ivory);
+  border-bottom-color: color-mix(in srgb, var(--ivory) 35%, transparent);
+}
+
+.date-field--dark .date-field__placeholder {
+  color: color-mix(in srgb, var(--ivory) 55%, transparent);
+}
+
+.date-field__panel {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.65rem);
+  left: 0;
+  width: min(100%, 22rem);
+  padding: 1.15rem 1.1rem 1rem;
+  background: #f7efe9;
+  color: var(--wine);
+  border: 1px solid color-mix(in srgb, var(--copper) 55%, transparent);
+  box-shadow: 0 24px 50px color-mix(in srgb, var(--charcoal) 22%, transparent);
+}
+
+.date-field__nav {
+  display: grid;
+  grid-template-columns: 2rem 1fr 2rem;
+  align-items: center;
+  margin-bottom: 0.9rem;
+}
+
+.date-field__nav p {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+
+.date-field__nav button {
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  background: transparent;
+  color: var(--rosewood);
+  font-size: 1.35rem;
+  cursor: pointer;
+}
+
+.date-field__nav button:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+.date-field__week,
+.date-field__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.date-field__week {
+  margin-bottom: 0.35rem;
+}
+
+.date-field__week span {
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--rosewood);
+}
+
+.date-field__day {
+  aspect-ratio: 1;
+  border: 0;
+  background: transparent;
+  color: var(--wine);
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.date-field__day:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--copper) 35%, transparent);
+}
+
+.date-field__day.is-outside {
+  opacity: 0.35;
+}
+
+.date-field__day.is-today {
+  box-shadow: inset 0 0 0 1px var(--copper);
+}
+
+.date-field__day.is-selected {
+  background: var(--wine);
+  color: var(--ivory);
+}
+
+.date-field__day:disabled {
+  opacity: 0.22;
+  cursor: default;
+  box-shadow: none;
+}
+
+@media (max-width: 700px) {
+  .inquire__row {
+    grid-template-columns: 1fr;
+  }
+
+  .date-field__panel {
+    width: 100%;
+  }
+}

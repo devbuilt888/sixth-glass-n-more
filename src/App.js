@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { Suspense, useLayoutEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
@@ -28,10 +28,12 @@ export default function App() {
     <>
       <ScrollManager />
       <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/next" element={<Next />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/next" element={<Next />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </>
   );

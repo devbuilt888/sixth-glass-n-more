@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LogoWordmark } from '../components/Logo';
 import Reveal from '../components/Reveal';
+import InquireForm from '../components/InquireForm';
 import './Home.css';
 
 const glasses = [
@@ -126,6 +128,8 @@ const journeys = [
 ];
 
 export default function Home() {
+  const [experience, setExperience] = useState('The Signature Sixth Glass');
+
   return (
     <main className="home">
       <section className="hero" aria-label="The Sixth Glass">
@@ -383,12 +387,15 @@ export default function Home() {
               <br />
               Available in English or Spanish.
             </p>
-            <a
-              className="btn btn--copper"
-              href="mailto:hello@thesixthglass.com?subject=Inquire%20about%20a%20Sixth%20Glass%20experience"
-            >
-              Inquire About an Experience
-            </a>
+            <InquireForm
+              source="web"
+              role="prospect"
+              page="/"
+              experience={experience}
+              onExperienceChange={setExperience}
+              submitLabel="Inquire about an experience"
+              mailtoHref="mailto:hello@thesixthglass.com?subject=Inquire%20about%20a%20Sixth%20Glass%20experience"
+            />
             <p className="signature__legal">
               Wine is purchased separately by the host. The Sixth Glass provides private
               educational and entertainment services and does not sell alcoholic beverages.
