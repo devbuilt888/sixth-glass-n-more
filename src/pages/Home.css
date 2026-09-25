@@ -499,6 +499,13 @@
   color: var(--rosewood);
 }
 
+.signature__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1rem;
+}
+
 .signature__legal {
   margin-top: 1.85rem;
   font-family: var(--font-ui);

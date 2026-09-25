@@ -166,6 +166,7 @@ export default function InquireForm({
   tone = 'light',
   submitLabel = 'Request this evening',
   mailtoHref,
+  showMailto = true,
 }) {
   const [date, setDate] = useState('');
   const [status, setStatus] = useState('idle');
@@ -298,9 +299,11 @@ export default function InquireForm({
         <button className="btn btn--copper" type="submit" disabled={status === 'sending'}>
           {status === 'sending' ? 'Sending' : submitLabel}
         </button>
-        <a className="inquire__mailto" href={mailtoHref}>
-          Prefer to email directly
-        </a>
+        {showMailto && (
+          <a className="inquire__mailto" href={mailtoHref}>
+            Prefer to email directly
+          </a>
+        )}
       </div>
     </form>
   );

@@ -129,6 +129,7 @@ const journeys = [
 
 export default function Home() {
   const [experience, setExperience] = useState('The Signature Sixth Glass');
+  const [formOpen, setFormOpen] = useState(false);
 
   return (
     <main className="home">
@@ -387,15 +388,37 @@ export default function Home() {
               <br />
               Available in English or Spanish.
             </p>
-            <InquireForm
-              source="web"
-              role="prospect"
-              page="/"
-              experience={experience}
-              onExperienceChange={setExperience}
-              submitLabel="Inquire about an experience"
-              mailtoHref="mailto:hello@thesixthglass.com?subject=Inquire%20about%20a%20Sixth%20Glass%20experience"
-            />
+            <div className="signature__actions">
+              <button
+                type="button"
+                className="btn btn--copper"
+                aria-expanded={formOpen}
+                aria-controls="host-form"
+                onClick={() => setFormOpen((open) => !open)}
+              >
+                Inquire about an experience
+              </button>
+              <a
+                className="btn btn--outline-wine"
+                href="mailto:hello@thesixthglass.com?subject=Inquire%20about%20a%20Sixth%20Glass%20experience"
+              >
+                Email directly
+              </a>
+            </div>
+            {formOpen && (
+              <div id="host-form">
+                <InquireForm
+                  source="web"
+                  role="prospect"
+                  page="/"
+                  experience={experience}
+                  onExperienceChange={setExperience}
+                  submitLabel="Send request"
+                  mailtoHref="mailto:hello@thesixthglass.com?subject=Inquire%20about%20a%20Sixth%20Glass%20experience"
+                  showMailto={false}
+                />
+              </div>
+            )}
             <p className="signature__legal">
               Wine is purchased separately by the host. The Sixth Glass provides private
               educational and entertainment services and does not sell alcoholic beverages.
