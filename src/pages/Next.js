@@ -129,7 +129,7 @@ export default function Next() {
                   className={`next-journeys__item ${selected ? 'is-selected' : ''}`}
                   delay={i * 80}
                 >
-                  <span className="next-journeys__label">{j.label}</span>
+                  <span className="next-journeys__label">{copy.nextTeaser.soon}</span>
                   <h3>{j.title}</h3>
                   <p>{j.body}</p>
                   <button

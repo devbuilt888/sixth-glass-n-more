@@ -131,11 +131,14 @@
 }
 
 .next-journeys__label {
+  align-self: flex-start;
   font-family: var(--font-ui);
-  font-size: 0.64rem;
-  letter-spacing: 0.26em;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--copper);
+  color: var(--charcoal);
+  background: var(--copper);
+  padding: 0.28rem 0.55rem;
 }
 
 .next-journeys__item h3 {

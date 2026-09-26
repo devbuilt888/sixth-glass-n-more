@@ -13,9 +13,7 @@ export default function Footer() {
         <div className="site-footer__brand">
           <LogoMark size={48} />
           <p className="site-footer__name">The Sixth Glass</p>
-          <p className="site-footer__motto">
-            {t.motto[0]} <span>|</span> {t.motto[1]} <span>|</span> {t.motto[2]}
-          </p>
+          <p className="site-footer__motto">{t.motto}</p>
         </div>
 
         <div className="site-footer__cols">

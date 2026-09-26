@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { LogoMark } from '../components/Logo';
 import Reveal from '../components/Reveal';
 import InquireForm from '../components/InquireForm';
@@ -143,12 +142,9 @@ export default function Home() {
 
       <section className="section section--ivory about" id="about">
         <div className="container about__grid">
-          <Reveal className="about__portrait" aria-hidden="true">
-            <div className="about__frame">
-              <div className="about__orb" />
-              <p className="about__initials">MB</p>
-              <p className="about__caption">{copy.about.caption}</p>
-            </div>
+          <Reveal className="about__portrait">
+            <FramePhoto src="/images/miguel-portrait.jpg" alt={copy.photos.miguel} tone="ivory" ratio="portrait" />
+            <p className="about__caption">{copy.about.caption}</p>
           </Reveal>
           <Reveal delay={120}>
             <p className="eyebrow">{copy.about.eyebrow}</p>
@@ -157,11 +153,12 @@ export default function Home() {
             <div className="about__copy">
               <p>{copy.about.p1}</p>
               <p>{copy.about.p2}</p>
-              <p>{copy.about.p3}</p>
               <p className="about__emphasis">{copy.about.emphasis}</p>
-              <p>{copy.about.p4}</p>
             </div>
           </Reveal>
+        </div>
+        <div className="container about__aside">
+          <FramePhoto src="/images/miguel-table.jpg" alt={copy.photos.miguelTable} tone="ivory" ratio="landscape" />
         </div>
       </section>
 
@@ -241,22 +238,18 @@ export default function Home() {
           <Reveal>
             <p className="eyebrow">{copy.nextTeaser.eyebrow}</p>
             <h2 className="section-title">{copy.nextTeaser.title}</h2>
-            <p className="section-lead">{copy.nextTeaser.lead}</p>
           </Reveal>
           <div className="next-teaser__grid">
             {copy.journeys.map((j, i) => (
               <Reveal as="article" key={j.id} className="next-teaser__item" delay={i * 80}>
-                <span className="next-teaser__label">{j.label}</span>
+                <span className="next-teaser__soon">{copy.nextTeaser.soon}</span>
                 <h3>{j.title}</h3>
                 <p>{j.body}</p>
               </Reveal>
             ))}
           </div>
           <Reveal delay={200}>
-            <p className="next-teaser__more">{copy.nextTeaser.more}</p>
-            <Link to="/next" className="btn btn--outline">
-              {copy.nextTeaser.cta}
-            </Link>
+            <p className="next-teaser__close">{copy.nextTeaser.lead}</p>
           </Reveal>
         </div>
       </section>

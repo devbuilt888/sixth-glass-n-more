@@ -42,15 +42,10 @@
 .site-footer__motto {
   font-family: var(--font-ui);
   font-size: 0.66rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   opacity: 0.72;
   line-height: 1.85;
-}
-
-.site-footer__motto span {
-  color: var(--copper);
-  margin: 0 0.35rem;
 }
 
 .site-footer__cols {
