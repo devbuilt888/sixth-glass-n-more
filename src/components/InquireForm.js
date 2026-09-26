@@ -129,7 +129,7 @@ function DateField({ value, onChange, tone, locale, labels }) {
                   key={isoDate(day)}
                   role="gridcell"
                   disabled={disabled}
-                  aria-pressed={isSelected}
+                  aria-selected={isSelected}
                   aria-label={day.toLocaleDateString(locale, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
                   className={[
                     'date-field__day',
