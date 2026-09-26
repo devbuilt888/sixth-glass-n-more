@@ -69,6 +69,22 @@
   max-width: 44rem;
 }
 
+.hero__mark .logo-mark {
+  width: clamp(92px, 16vw, 132px);
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.hero__region {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  max-width: 36ch;
+  line-height: 1.6;
+  color: var(--copper-bright);
+}
+
 .hero__line {
   font-family: var(--font-body);
   font-style: italic;
@@ -112,6 +128,34 @@
 }
 
 /* —— Intro —— */
+.intro__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.journey__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(14rem, 0.7fr);
+  gap: 2.5rem;
+  align-items: end;
+}
+
+.journey__head .frame-photo {
+  justify-self: end;
+  width: min(100%, 16rem);
+}
+
+.learn__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.gathering__layout {
+  max-width: 48rem;
+}
+
 .intro__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
@@ -695,8 +739,18 @@
   .journey__grid,
   .next-teaser__grid,
   .learn__ideas,
-  .gathering__facts {
+  .gathering__facts,
+  .journey__head {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .journey__head {
+    grid-template-columns: 1fr;
+  }
+
+  .journey__head .frame-photo {
+    justify-self: start;
+    width: min(100%, 18rem);
   }
 
   .journey__card--mystery {

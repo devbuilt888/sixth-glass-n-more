@@ -1,5 +1,6 @@
 import { Suspense, useLayoutEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { LanguageProvider } from './i18n/Language';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -25,7 +26,7 @@ function ScrollManager() {
 
 export default function App() {
   return (
-    <>
+    <LanguageProvider>
       <ScrollManager />
       <Nav />
       <Suspense fallback={null}>
@@ -35,6 +36,6 @@ export default function App() {
         </Routes>
       </Suspense>
       <Footer />
-    </>
+    </LanguageProvider>
   );
 }

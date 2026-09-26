@@ -3,30 +3,13 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { LogoMark } from '../components/Logo';
 import Reveal from '../components/Reveal';
 import InquireForm from '../components/InquireForm';
+import { useLanguage } from '../i18n/Language';
+import { EXPERIENCES } from '../i18n/copy';
 import './Next.css';
 
-const journeys = [
-  {
-    label: 'Spain',
-    title: 'Spain in Six Glasses',
-    body: 'From Atlantic freshness to Mediterranean warmth. Six wines, six places, one country.',
-  },
-  {
-    label: 'Italy',
-    title: 'Italy in Six Glasses',
-    body: "Six wines through one of the world's most wonderfully complicated wine countries.",
-  },
-  {
-    label: 'Sparkling',
-    title: 'The Sparkling Night',
-    body: 'Not everything that bubbles is Champagne. Six sparkling wines and some surprises.',
-  },
-  {
-    label: 'Red',
-    title: 'The Red Night',
-    body: 'From elegant Pinot Noir to powerful Cabernet—and everything structure, tannin and body can teach us along the way.',
-  },
-];
+function valueFor(id) {
+  return EXPERIENCES.find((item) => item.id === id)?.value || EXPERIENCES[0].value;
+}
 
 function mailtoFor({ role, experience }) {
   const subject = encodeURIComponent(`Sixth Glass inquiry — ${role} — ${experience || 'next experience'}`);
@@ -37,6 +20,8 @@ function mailtoFor({ role, experience }) {
 }
 
 export default function Next() {
+  const { copy } = useLanguage();
+  const t = copy.next;
   const [params] = useSearchParams();
   const roleParam = params.get('role');
   const sourceParam = params.get('src');
@@ -45,12 +30,10 @@ export default function Next() {
   const role = isHost ? 'host' : isGuest ? 'guest' : 'visitor';
   const source = sourceParam || (isHost ? 'host-card' : isGuest ? 'card' : 'direct');
 
-  const [experience, setExperience] = useState(
-    isHost ? 'Spain in Six Glasses' : 'The Signature Sixth Glass'
-  );
+  const [experience, setExperience] = useState(valueFor(isHost ? 'spain' : 'signature'));
 
   useEffect(() => {
-    setExperience(isHost ? 'Spain in Six Glasses' : 'The Signature Sixth Glass');
+    setExperience(valueFor(isHost ? 'spain' : 'signature'));
   }, [isHost]);
 
   const mailtoHref = useMemo(
@@ -58,8 +41,8 @@ export default function Next() {
     [role, experience]
   );
 
-  const selectJourney = (title) => {
-    setExperience(title);
+  const selectJourney = (id) => {
+    setExperience(valueFor(id));
     document.getElementById('request')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
@@ -71,21 +54,17 @@ export default function Next() {
             <LogoMark size={64} />
           </div>
           <p className="eyebrow reveal reveal-delay-1">
-            {isHost ? 'You hosted' : 'You were there'}
+            {isHost ? t.hostedEyebrow : t.guestEyebrow}
           </p>
           <h1 className="reveal reveal-delay-1">
-            {isHost ? 'Where should we travel next?' : 'Enjoyed your Sixth Glass?'}
+            {isHost ? t.hostedTitle : t.guestTitle}
           </h1>
           <p className="next-hero__lead reveal reveal-delay-2">
-            {isHost
-              ? 'Returning hosts are welcomed back with something a little more special.'
-              : 'A little something special is waiting for you.'}
+            {isHost ? t.hostedLead : t.guestLead}
           </p>
           <hr className="hairline reveal reveal-delay-2" />
           <p className="next-hero__sub reveal reveal-delay-3">
-            {isHost
-              ? 'Choose your next six glasses.'
-              : 'Now it\'s your turn to host.'}
+            {isHost ? t.hostedSub : t.guestSub}
           </p>
         </div>
       </section>
@@ -94,23 +73,16 @@ export default function Next() {
         <section className="section section--ivory next-guest" id="host-your-own">
           <div className="container next-split">
             <Reveal>
-              <p className="eyebrow">{isGuest ? 'From your guest card' : 'For the guest'}</p>
-              <h2 className="section-title">Now it&apos;s your turn to host.</h2>
-              <p className="section-lead">
-                You were a guest tonight. Next time, make it your table.
-              </p>
+              <p className="eyebrow">{isGuest ? t.fromCard : t.forGuest}</p>
+              <h2 className="section-title">{t.turnTitle}</h2>
+              <p className="section-lead">{t.turnLead}</p>
             </Reveal>
             <Reveal className="next-offer" delay={120}>
-              <p>
-                Host your own Signature Sixth Glass experience and receive a welcome gift toward
-                your first evening.
-              </p>
+              <p>{t.turnBody}</p>
               <div className="next-code">
-                <p className="next-code__label">Use code</p>
+                <p className="next-code__label">{t.code}</p>
                 <p className="next-code__value">MY6THGLASS</p>
-                <p className="next-code__note">
-                  Illustrative offer — final amount confirmed when you inquire.
-                </p>
+                <p className="next-code__note">{t.codeNote}</p>
               </div>
             </Reveal>
           </div>
@@ -120,15 +92,9 @@ export default function Next() {
       <section className={`section ${isHost ? 'section--wine' : 'section--ivory'} next-request`} id="request">
         <div className="container next-request__inner">
           <Reveal>
-            <p className="eyebrow">{isHost ? 'Your next journey' : 'Request the evening'}</p>
-            <h2 className="section-title">
-              {isHost ? 'Tell us where to come next.' : 'Host your own evening.'}
-            </h2>
-            <p className="section-lead">
-              {isHost
-                ? 'Pick a journey, a date, and the address. We’ll take it from there.'
-                : 'Choose a date and the place. We’ll confirm the wines with you before the night.'}
-            </p>
+            <p className="eyebrow">{isHost ? t.hostEyebrow : t.requestEyebrow}</p>
+            <h2 className="section-title">{isHost ? t.hostTitle : t.requestTitle}</h2>
+            <p className="section-lead">{isHost ? t.hostLead : t.requestLead}</p>
           </Reveal>
           <Reveal delay={100}>
             <InquireForm
@@ -138,7 +104,7 @@ export default function Next() {
               experience={experience}
               onExperienceChange={setExperience}
               tone={isHost ? 'dark' : 'light'}
-              submitLabel={isHost ? 'Request this journey' : 'Host your own evening'}
+              submitLabel={isHost ? t.hostSubmit : t.guestSubmit}
               mailtoHref={mailtoHref}
             />
           </Reveal>
@@ -148,39 +114,34 @@ export default function Next() {
       <section className={`section ${isHost ? 'section--ivory' : 'section--wine'} next-host`} id="returning-host">
         <div className="container">
           <Reveal>
-            <p className="eyebrow">{isHost ? 'Choose one' : 'Or travel further'}</p>
-            <h2 className="section-title">
-              {isHost ? 'Six glasses, a new place.' : 'Where should the next six glasses take you?'}
-            </h2>
-            {!isGuest && (
-              <p className="next-host__upgrade">
-                Returning hosts receive something special on their next experience—a premium sixth
-                wine, a thoughtful pairing, or another upgrade that feels like hospitality, not a
-                coupon.
-              </p>
-            )}
+            <p className="eyebrow">{isHost ? t.choose : t.further}</p>
+            <h2 className="section-title">{isHost ? t.chooseTitle : t.furtherTitle}</h2>
+            {!isGuest && <p className="next-host__upgrade">{t.upgrade}</p>}
           </Reveal>
 
           <div className="next-journeys">
-            {journeys.map((j, i) => (
-              <Reveal
-                as="article"
-                key={j.title}
-                className={`next-journeys__item ${experience === j.title ? 'is-selected' : ''}`}
-                delay={i * 80}
-              >
-                <span className="next-journeys__label">{j.label}</span>
-                <h3>{j.title}</h3>
-                <p>{j.body}</p>
-                <button
-                  type="button"
-                  className="next-journeys__link"
-                  onClick={() => selectJourney(j.title)}
+            {copy.journeys.map((j, i) => {
+              const selected = experience === valueFor(j.id);
+              return (
+                <Reveal
+                  as="article"
+                  key={j.id}
+                  className={`next-journeys__item ${selected ? 'is-selected' : ''}`}
+                  delay={i * 80}
                 >
-                  {experience === j.title ? 'Selected' : 'Request this journey'}
-                </button>
-              </Reveal>
-            ))}
+                  <span className="next-journeys__label">{j.label}</span>
+                  <h3>{j.title}</h3>
+                  <p>{j.body}</p>
+                  <button
+                    type="button"
+                    className="next-journeys__link"
+                    onClick={() => selectJourney(j.id)}
+                  >
+                    {selected ? t.selected : t.requestJourney}
+                  </button>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -188,16 +149,14 @@ export default function Next() {
       <section className="section section--charcoal next-close">
         <div className="container next-close__inner">
           <Reveal>
-            <p className="next-close__line">
-              Six wines. 90 minutes. Your home. Your friends.
-            </p>
+            <p className="next-close__line">{t.line}</p>
             <p className="next-close__brand">The Sixth Glass</p>
             <div className="next-close__actions">
               <a href="#request" className="btn btn--copper">
-                {isHost ? 'Request a journey' : 'Host an Experience'}
+                {isHost ? t.requestCta : t.hostCta}
               </a>
               <Link to="/" className="btn btn--outline">
-                Back to the beginning
+                {t.back}
               </Link>
             </div>
           </Reveal>

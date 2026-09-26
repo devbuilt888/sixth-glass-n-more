@@ -1,0 +1,58 @@
+.frame-photo {
+  --fade: var(--ivory);
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 1.35rem 3.6rem 1.35rem 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--copper) 55%, transparent);
+  box-shadow:
+    0 22px 50px color-mix(in srgb, var(--charcoal) 16%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--ivory) 18%, transparent);
+}
+
+.frame-photo--wine {
+  --fade: var(--wine);
+}
+
+.frame-photo--rosewood {
+  --fade: var(--rosewood);
+}
+
+.frame-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+}
+
+.frame-photo--portrait img {
+  aspect-ratio: 4 / 5;
+}
+
+.frame-photo--landscape img {
+  aspect-ratio: 5 / 4;
+}
+
+.frame-photo::before,
+.frame-photo::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+.frame-photo::before {
+  inset: 0;
+  background:
+    linear-gradient(135deg, var(--fade) 0%, transparent 34%),
+    linear-gradient(320deg, color-mix(in srgb, var(--fade) 72%, transparent) 0%, transparent 28%);
+}
+
+.frame-photo::after {
+  width: 4.5rem;
+  height: 4.5rem;
+  right: 0.85rem;
+  bottom: 0.85rem;
+  border-right: 1px solid color-mix(in srgb, var(--copper) 80%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--copper) 80%, transparent);
+}

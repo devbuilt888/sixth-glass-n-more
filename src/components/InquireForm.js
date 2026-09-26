@@ -1,18 +1,10 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { LogoMark } from './Logo';
+import { useLanguage } from '../i18n/Language';
+import { EXPERIENCES } from '../i18n/copy';
 import './InquireForm.css';
 
 export const FORM_ENDPOINT = 'https://formspree.io/f/mzezvydr';
-
-export const EXPERIENCES = [
-  'The Signature Sixth Glass',
-  'Spain in Six Glasses',
-  'Italy in Six Glasses',
-  'The Sparkling Night',
-  'The Red Night',
-];
-
-const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
 function isoDate(date) {
   const y = date.getFullYear();
@@ -35,8 +27,8 @@ function sameDay(a, b) {
   return a && b && isoDate(a) === isoDate(b);
 }
 
-function monthLabel(date) {
-  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+function monthLabel(date, locale) {
+  return date.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
 }
 
 function buildDays(cursor) {
@@ -50,7 +42,7 @@ function buildDays(cursor) {
   });
 }
 
-function DateField({ value, onChange, tone }) {
+function DateField({ value, onChange, tone, locale, labels }) {
   const [open, setOpen] = useState(false);
   const selected = parseIso(value);
   const today = startOfDay(new Date());
@@ -75,6 +67,10 @@ function DateField({ value, onChange, tone }) {
   }, [open]);
 
   const days = useMemo(() => buildDays(cursor), [cursor]);
+  const weekdays = useMemo(() => Array.from({ length: 7 }, (_, index) => {
+    const day = new Date(2024, 0, 7 + index);
+    return day.toLocaleDateString(locale, { weekday: 'narrow' });
+  }), [locale]);
   const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
   const atMinMonth = cursor.getFullYear() === monthStart.getFullYear() && cursor.getMonth() === monthStart.getMonth();
 
@@ -84,7 +80,7 @@ function DateField({ value, onChange, tone }) {
 
   return (
     <div className={`date-field ${tone === 'dark' ? 'date-field--dark' : ''}`} ref={rootRef}>
-      <span className="inquire__label" id={labelId}>Preferred date</span>
+      <span className="inquire__label" id={labelId}>{labels.date}</span>
       <button
         type="button"
         className="date-field__trigger"
@@ -95,33 +91,33 @@ function DateField({ value, onChange, tone }) {
       >
         <span className={selected ? '' : 'date-field__placeholder'}>
           {selected
-            ? selected.toLocaleDateString('en-US', {
+            ? selected.toLocaleDateString(locale, {
               weekday: 'long',
               month: 'long',
               day: 'numeric',
             })
-            : 'Choose an evening'}
+            : labels.datePlaceholder}
         </span>
       </button>
       <input type="hidden" name="preferred_date" value={value} />
 
       {open && (
-        <div className="date-field__panel" role="dialog" aria-label="Choose a date">
+        <div className="date-field__panel" role="dialog" aria-label={labels.chooseDate}>
           <div className="date-field__nav">
-            <button type="button" onClick={() => shiftMonth(-1)} disabled={atMinMonth} aria-label="Previous month">
+            <button type="button" onClick={() => shiftMonth(-1)} disabled={atMinMonth} aria-label={labels.prevMonth}>
               ‹
             </button>
-            <p>{monthLabel(cursor)}</p>
-            <button type="button" onClick={() => shiftMonth(1)} aria-label="Next month">
+            <p>{monthLabel(cursor, locale)}</p>
+            <button type="button" onClick={() => shiftMonth(1)} aria-label={labels.nextMonth}>
               ›
             </button>
           </div>
           <div className="date-field__week" aria-hidden="true">
-            {WEEKDAYS.map((day, index) => (
+            {weekdays.map((day, index) => (
               <span key={`${day}-${index}`}>{day}</span>
             ))}
           </div>
-          <div className="date-field__grid" role="grid" aria-label={monthLabel(cursor)}>
+          <div className="date-field__grid" role="grid" aria-label={monthLabel(cursor, locale)}>
             {days.map((day) => {
               const outside = day.getMonth() !== cursor.getMonth();
               const disabled = day < today;
@@ -134,7 +130,7 @@ function DateField({ value, onChange, tone }) {
                   role="gridcell"
                   disabled={disabled}
                   aria-pressed={isSelected}
-                  aria-label={day.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+                  aria-label={day.toLocaleDateString(locale, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
                   className={[
                     'date-field__day',
                     outside ? 'is-outside' : '',
@@ -172,6 +168,8 @@ export default function InquireForm({
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
   const sentRef = useRef(null);
+  const { copy, locale } = useLanguage();
+  const labels = copy.form;
 
   const subject = `Sixth Glass inquiry — ${role} — ${experience || 'unspecified'}`;
 
@@ -183,7 +181,7 @@ export default function InquireForm({
   async function onSubmit(event) {
     event.preventDefault();
     if (!date) {
-      setError('Choose an evening to continue.');
+      setError(labels.dateError);
       return;
     }
     setError('');
@@ -199,14 +197,14 @@ export default function InquireForm({
       setStatus('sent');
     } catch {
       setStatus('idle');
-      setError('The request didn’t send. Email us directly and we’ll take it from there.');
+      setError(labels.sendError);
     }
   }
 
   if (status === 'sent') {
     const when = parseIso(date);
     const whenLabel = when
-      ? when.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
+      ? when.toLocaleDateString(locale, { weekday: 'long', month: 'long', day: 'numeric' })
       : '';
 
     return (
@@ -217,15 +215,13 @@ export default function InquireForm({
         tabIndex={-1}
       >
         <LogoMark size={72} />
-        <p className="inquire__sent-kicker">Request received</p>
-        <p className="inquire__thanks">Your evening is requested.</p>
+        <p className="inquire__sent-kicker">{labels.received}</p>
+        <p className="inquire__thanks">{labels.thanks}</p>
         <hr className="hairline hairline--center" />
-        <p className="inquire__sent-body">
-          Miguel will write to you shortly to confirm the date, the venue, and the wines.
-        </p>
+        <p className="inquire__sent-body">{labels.confirm}</p>
         {(experience || whenLabel) && (
           <p className="inquire__sent-meta">
-            {experience}
+            {labels.labels[EXPERIENCES.find((item) => item.value === experience)?.id] || experience}
             {experience && whenLabel ? ' · ' : ''}
             {whenLabel}
           </p>
@@ -244,64 +240,64 @@ export default function InquireForm({
 
       <div className="inquire__row">
         <label className="inquire__field">
-          <span className="inquire__label">Name</span>
-          <input name="name" type="text" required autoComplete="name" placeholder="Your name" />
+          <span className="inquire__label">{labels.name}</span>
+          <input name="name" type="text" required autoComplete="name" placeholder={labels.namePlaceholder} />
         </label>
         <label className="inquire__field">
-          <span className="inquire__label">Email</span>
+          <span className="inquire__label">{labels.email}</span>
           <input name="email" type="email" required autoComplete="email" placeholder="you@email.com" />
         </label>
       </div>
 
       <label className="inquire__field">
-        <span className="inquire__label">Address</span>
+        <span className="inquire__label">{labels.address}</span>
         <input
           name="address"
           type="text"
           required
           autoComplete="street-address"
-          placeholder="Home or private venue"
+          placeholder={labels.addressPlaceholder}
         />
       </label>
 
       <div className="inquire__row">
         <label className="inquire__field">
-          <span className="inquire__label">Experience</span>
+          <span className="inquire__label">{labels.experience}</span>
           <select
             name="experience"
             value={experience}
             onChange={(event) => onExperienceChange(event.target.value)}
             required
           >
-            <option value="" disabled>Select an experience</option>
+            <option value="" disabled>{labels.experiencePlaceholder}</option>
             {EXPERIENCES.map((item) => (
-              <option key={item} value={item}>{item}</option>
+              <option key={item.id} value={item.value}>{labels.labels[item.id]}</option>
             ))}
           </select>
         </label>
         <label className="inquire__field">
-          <span className="inquire__label">Guests</span>
-          <input name="guests" type="number" min="1" max="20" inputMode="numeric" placeholder="10–12 is ideal" />
+          <span className="inquire__label">{labels.guests}</span>
+          <input name="guests" type="number" min="1" max="20" inputMode="numeric" placeholder={labels.guestsPlaceholder} />
         </label>
       </div>
 
-      <DateField value={date} onChange={setDate} tone={tone} />
+      <DateField value={date} onChange={setDate} tone={tone} locale={locale} labels={labels} />
       {!date && error && <p className="inquire__error">{error}</p>}
 
       <label className="inquire__field">
-        <span className="inquire__label">Note <span>optional</span></span>
-        <textarea name="message" rows="3" placeholder="Occasion, language, anything we should know" />
+        <span className="inquire__label">{labels.note} <span>{labels.optional}</span></span>
+        <textarea name="message" rows="3" placeholder={labels.notePlaceholder} />
       </label>
 
       {error && date && <p className="inquire__error">{error}</p>}
 
       <div className="inquire__actions">
         <button className="btn btn--copper" type="submit" disabled={status === 'sending'}>
-          {status === 'sending' ? 'Sending' : submitLabel}
+          {status === 'sending' ? labels.sending : submitLabel}
         </button>
         {showMailto && (
           <a className="inquire__mailto" href={mailtoHref}>
-            Prefer to email directly
+            {labels.mailto}
           </a>
         )}
       </div>
