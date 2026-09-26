@@ -30,7 +30,7 @@ export default function Home() {
           </p>
           <p className="hero__region reveal reveal-delay-2">{copy.hero.region}</p>
           <div className="hero__cta reveal reveal-delay-3">
-            <a href="#experiences" className="btn btn--copper">
+            <a href="#invitation" className="btn btn--copper">
               {copy.hero.cta}
             </a>
           </div>
@@ -40,7 +40,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section--ivory intro">
+      <section className="section section--ivory intro" id="invitation">
         <div className="container intro__grid">
           <Reveal>
             <p className="eyebrow">{copy.intro.eyebrow}</p>
@@ -57,6 +57,7 @@ export default function Home() {
                 {copy.intro.nos.map((item) => <li key={item}>{item}</li>)}
               </ul>
               <p className="intro__close">{copy.intro.close}</p>
+              <p className="intro__languages">{copy.intro.languages}</p>
             </Reveal>
           </div>
         </div>

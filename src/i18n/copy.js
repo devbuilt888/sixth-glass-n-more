@@ -21,7 +21,7 @@ const en = {
   hero: {
     line1: 'Six wines. 90 minutes. Your home. Your friends.',
     line2: 'And wait for the sixth glass.',
-    region: 'A private experience throughout Central Florida, in English or Spanish.',
+    region: 'A private experience throughout Central Florida',
     cta: 'See the experience',
   },
   intro: {
@@ -32,6 +32,7 @@ const en = {
     p2: "Over 90 minutes, we'll taste six carefully selected wines, discover why they taste the way they do, challenge a few things you thought you knew about wine—and probably laugh quite a bit along the way.",
     nos: ['No lectures.', 'No intimidating wine language.', 'No experience required.'],
     close: 'Just good wine, good people and a different way to spend an evening together.',
+    languages: 'In English or Spanish.',
   },
   photos: {
     pour: 'A bottle being poured at a lively table of friends',
@@ -288,7 +289,7 @@ const es = {
   hero: {
     line1: 'Seis vinos. 90 minutos. Tu casa. Tus amigos.',
     line2: 'Y espera la sexta copa.',
-    region: 'Una experiencia privada en todo el centro de Florida, en inglés o en español.',
+    region: 'Una experiencia privada en todo el centro de Florida',
     cta: 'Ver la experiencia',
   },
   intro: {
@@ -299,6 +300,7 @@ const es = {
     p2: 'Durante 90 minutos probaremos seis vinos elegidos con cuidado, descubriremos por qué saben como saben, pondremos en duda algunas ideas y, muy probablemente, nos reiremos bastante.',
     nos: ['Sin conferencias.', 'Sin lenguaje intimidante.', 'Sin experiencia previa.'],
     close: 'Solo buen vino, buena compañía y otra forma de pasar la noche juntos.',
+    languages: 'En inglés o en español.',
   },
   photos: {
     pour: 'Una botella sirviéndose en una mesa llena de amigos',

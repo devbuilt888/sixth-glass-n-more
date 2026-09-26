@@ -66,7 +66,7 @@
   flex-direction: column;
   align-items: center;
   gap: 1.85rem;
-  max-width: 44rem;
+  max-width: 72rem;
 }
 
 .hero__mark .logo-mark {
@@ -80,7 +80,8 @@
   font-size: 0.72rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  max-width: 36ch;
+  max-width: none;
+  white-space: nowrap;
   line-height: 1.6;
   color: var(--copper-bright);
 }
@@ -197,6 +198,14 @@
   font-style: italic;
   font-size: 1.38rem;
   color: var(--wine);
+}
+
+.intro__languages {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rosewood);
 }
 
 /* —— Journey —— */
@@ -800,6 +809,11 @@
 }
 
 @media (max-width: 600px) {
+  .hero__region {
+    white-space: normal;
+    max-width: 22rem;
+  }
+
   .journey__grid,
   .next-teaser__grid,
   .learn__ideas,
